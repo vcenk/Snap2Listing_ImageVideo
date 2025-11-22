@@ -20,8 +20,9 @@ const supabase = createClient(
 /**
  * Sanitize string by removing invalid Unicode characters
  */
-function sanitizeString(str: string | null | undefined): string | null {
-  if (!str) return null;
+function sanitizeString(str: any): string | null {
+  if (str === null || str === undefined) return null;
+  if (typeof str !== 'string') return String(str);
   // Remove unpaired surrogates (U+D800 to U+DFFF) that cause JSON errors
   return str.replace(/[\uD800-\uDFFF]/g, '');
 }
